@@ -1,13 +1,12 @@
 <template>
-  <div id="app">
-    <router-view/>
+  <div>
+    clek operation
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
+
 }
 </script>
 
