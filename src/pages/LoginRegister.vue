@@ -6,7 +6,7 @@
           <el-form-item label="客户名">
             <el-input v-model="customerForm.username"></el-input>
           </el-form-item>
-          <el-form-item label="密码" prop="pass">
+          <el-form-item label="密码">
             <el-input
               type="password"
               v-model="customerForm.password"
@@ -22,7 +22,7 @@
           <el-form-item label="职员名">
             <el-input v-model="clerkForm.username"></el-input>
           </el-form-item>
-          <el-form-item label="密码" prop="pass">
+          <el-form-item label="密码">
             <el-input type="password" v-model="clerkForm.password"></el-input>
           </el-form-item>
         </el-form>
@@ -33,7 +33,7 @@
           <el-form-item label="职员名">
             <el-input v-model="clerkRegisterForm.username"></el-input>
           </el-form-item>
-          <el-form-item label="密码" prop="pass">
+          <el-form-item label="密码">
             <el-input
               type="password"
               v-model="clerkRegisterForm.password"
@@ -75,7 +75,7 @@ export default {
         this.customerForm.username === "" ||
         this.customerForm.password === ""
       ) {
-        this.$message.error("用户名和密码不能为空！");
+        this.$message.error("客户名和密码不能为空！");
         return;
       }
       axios
@@ -95,7 +95,7 @@ export default {
     },
     clerkLogin() {
       if (this.clerkForm.username === "" || this.clerkForm.password === "") {
-        this.$message.error("用户名和密码不能为空！");
+        this.$message.error("职员名和密码不能为空！");
         return;
       }
       axios
@@ -113,7 +113,7 @@ export default {
     },
     clerkRegister() {
       if (this.clerkRegisterForm.username === "" || this.clerkRegisterForm.password === "") {
-        this.$message.error("用户名和密码不能为空！");
+        this.$message.error("职员名和密码不能为空！");
         return;
       }
       axios

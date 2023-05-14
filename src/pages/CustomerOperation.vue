@@ -6,7 +6,10 @@
     <el-tag>余额：{{ balance }}</el-tag>
     <el-tabs v-model="activeName">
       <el-tab-pane label="存款" name="deposit">
-        <el-input v-model="depositAmount" placeholder="请输入存款金额" />
+        请输入存款金额: &nbsp;<el-input-number
+          v-model="depositAmount"
+          :min="0"
+        />
         <br />
         <br />
         <el-button type="primary" round @click="deposit">确认存款</el-button>
@@ -24,6 +27,8 @@
         <el-button type="primary" round @click="transfer">确认转账</el-button>
       </el-tab-pane>
     </el-tabs>
+    <br />
+    <el-button type="warning" round @click="logout">退出登录</el-button>
   </div>
 </template>
 
@@ -34,14 +39,14 @@ export default {
     return {
       activeName: "deposit",
       balance: "",
-      depositAmount: "",
+      depositAmount: 0,
       transferAmount: 0,
       transferAccount: "",
     };
   },
   methods: {
     deposit() {
-      axios.post(`customer/deposit/${this.depositAmount}}`).then((resp) => {
+      axios.post(`customer/deposit/${this.depositAmount}`).then((resp) => {
         if (resp.data.success) {
           this.$message.success("存款成功");
           this.getBalance();
@@ -74,6 +79,17 @@ export default {
           this.balance = resp.data.info;
         } else {
           this.$message.error("发生错误，请退出并重新登录");
+        }
+      });
+    },
+    logout() {
+      axios.get("customer/logout").then((resp) => {
+        if (resp.data.success) {
+          this.$message.success("退出成功！");
+          this.$router.replace('/')
+        } else {
+          this.$message.error("发生错误！");
+          this.$router.replace('/')
         }
       });
     },
