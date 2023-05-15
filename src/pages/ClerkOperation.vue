@@ -28,9 +28,9 @@
         >
       </el-tab-pane>
       <el-tab-pane label="删除账户" name="deleteAccount">
-        请输入要删除的账户 ID: &nbsp;<el-input-number
+        <el-input 
           v-model="deleteAccountID"
-          :min="0"
+          placeholder="请输入要删除的账户 ID"
         />
         <br />
         <br />
@@ -55,7 +55,7 @@ export default {
         password: "",
       },
       activeName: "showAccounts",
-      deleteAccountID: 0,
+      deleteAccountID: "",
     };
   },
   methods: {
@@ -83,6 +83,11 @@ export default {
     deleteAccount() {
       if (this.deleteAccountID === "") {
         this.$message.error("账户 ID 不能为空！");
+        return;
+      }
+      let PositiveIntegerRegular = /(^[1-9]\d*$)/;
+      if (!PositiveIntegerRegular.test(this.deleteAccountID)) {
+        this.$message.error("账户 ID 只能是正整数！");
         return;
       }
       axios.delete(`clerk/account/${this.deleteAccountID}`).then((resp) => {
